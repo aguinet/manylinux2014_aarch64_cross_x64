@@ -12,5 +12,5 @@ echo "${CMAKE_HASH}  cmake-${CMAKE_VERSION}-Linux-x86_64.tar.gz" >cmake.sha
 curl -sSL $URL/${CMAKE_FILE} -O
 sha256sum -c cmake.sha
 mkdir -p /opt/native
-tar -C /opt/native --strip-components=1 -xf "${CMAKE_FILE}"
+tar -C /opt/native --strip-components=1 -xzf "${CMAKE_FILE}"
 rm "${CMAKE_FILE}" cmake.sha
