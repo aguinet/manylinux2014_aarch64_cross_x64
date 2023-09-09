@@ -2,8 +2,8 @@
 FROM quay.io/pypa/manylinux2014_x86_64 as manylinux_native
 COPY install_cmake_manylinux.sh /tmp/install_cmake_manylinux.sh
 RUN /bin/bash /tmp/install_cmake_manylinux.sh && \
-   curl -sSL -O https://github.com/llvm/llvm-project/releases/download/llvmorg-10.0.1/llvm-project-10.0.1.tar.xz && \
-   tar xf llvm-project-10.0.1.tar.xz && \
+   curl -sSL -O https://github.com/llvm/llvm-project/releases/download/llvmorg-16.0.6/llvm-project-16.0.6.tar.xz && \
+   tar xf llvm-project-16.0.6.tar.xz && \
    cd llvm-project-* && mkdir build && cd build && \
    /opt/native/bin/cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_ENABLE_PROJECTS='clang;lld' -DLLVM_TARGETS_TO_BUILD=AArch64 -DLLVM_DEFAULT_TARGET_TRIPLE=aarch64-pc-linux-gnu ../llvm  -DLLVM_ENABLE_ZLIB=OFF -DLLVM_ENABLE_TERMINFO=OFF -DLLVM_ENABLE_LIBXML2=OFF -DLLVM_ENABLE_LIBEDIT=OFF -DLLVM_TARGET_ARCH=AArch64 -DLLVM_BUILD_TOOLS=OFF -DCLANG_BUILD_TOOLS=ON -DLLVM_INSTALL_TOOLCHAIN_ONLY=ON -DGCC_INSTALL_PREFIX=/opt/rh/devtoolset-9/root -DCMAKE_INSTALL_PREFIX=/opt/native -DLLVM_STATIC_LINK_CXX_STDLIB=ON -DCLANG_ENABLE_ARCMT=OFF -DCLANG_ENABLE_STATIC_ANALYZER=OFF -DLLVM_ENABLE_THREADS=OFF && \
    make install -j$(nproc) && \
